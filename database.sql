@@ -4,7 +4,8 @@ Table users {
   password varchar
   fullname varchar
   email varchar
-  img_user varchar
+  img_link varchar
+  public_id varchar
   disable_status boolean
   created_at date
 }
@@ -47,6 +48,7 @@ Table comment_post
 {
   id integer [primary key]
   id_post integer
+  id_user integer
   content varchar
   created_at date
 }
@@ -56,6 +58,7 @@ Table like_post
   id integer [primary key]
   id_post integer
   status boolean
+  id_user integer
   created_at date
 }
 
