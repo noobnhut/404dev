@@ -11,13 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      hotel.belongsTo(models.user, { foreignKey: 'id_user' });
+      post.hasMany(models.like_post, { foreignKey: 'id_post' });
+      post.hasMany(models.comment_post, { foreignKey: 'id_post' });
+      post.hasMany(models.img_post, { foreignKey: 'id_post' });
+      post.hasMany(models.noti_post, { foreignKey: 'id_post' });
+      post.hasMany(models.post_tag, { foreignKey: 'id_post' });
     }
   }
   post.init({
     id_user: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    tag_id: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'post',

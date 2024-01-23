@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('like_posts', {
+    await queryInterface.createTable('post_tags', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,14 +17,11 @@ module.exports = {
           key: "id",
         },
       },
-      status: {
-        type: Sequelize.BOOLEAN
-      },
-      id_user: {
+      id_tag: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "users",
+          model: "tags",
           key: "id",
         },
       },
@@ -39,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('like_posts');
+    await queryInterface.dropTable('post_tags');
   }
 };

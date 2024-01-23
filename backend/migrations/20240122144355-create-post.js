@@ -10,15 +10,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_user: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
       },
       title: {
         type: Sequelize.STRING
       },
       content: {
-        type: Sequelize.STRING
-      },
-      tag_id: {
         type: Sequelize.STRING
       },
       createdAt: {

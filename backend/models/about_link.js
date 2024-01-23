@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   about_link.init({
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    status: DataTypes.ENUM
+    status: DataTypes.ENUM('about','link','guild')
   }, {
     sequelize,
     modelName: 'about_link',

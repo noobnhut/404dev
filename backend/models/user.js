@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      user.hasMany(models.reset_password, { foreignKey: 'id_user' });
+
+      user.hasMany(models.post, { foreignKey: 'id_user' });
+      user.hasMany(models.like_post, { foreignKey: 'id_user' });
+      user.hasMany(models.comment_post, { foreignKey: 'id_user' });
+      user.hasMany(models.comment_post, { foreignKey: 'id_user' });
+
+      user.hasMany(models.follow_user, { foreignKey: 'to_user' });
+      user.hasMany(models.follow_user, { foreignKey: 'from_user' });
+
+      user.hasMany(models.noti_post, { foreignKey: 'id_user' });
+      user.hasMany(models.noti_system, { foreignKey: 'id_user' });
     }
   }
   user.init({

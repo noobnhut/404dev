@@ -1,12 +1,5 @@
 const db = require("../models");
 const User = db.User;
-const Order = db.order;
-const OD = db.order_detail;
-const Rating = db.rating_hotel;
-const Mess = db.messager;
-const Report = db.report_hotel;
-const Favorate = db.favorate_hotel;
-const Noti = db.notification;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
@@ -166,87 +159,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
-  try {
-    const id = req.params.id;
-    console.log(id)
-    const exsitUser = await User.findByPk(id);
-    if (!exsitUser) {
-      return res.status(404).json({ error: `Không tìm thấy user` });
-    } else {
-      // xử lý hóa đơn
-      const exitsOrder = await Order.findOne({
-        where: {
-          id_user: id,
-          [Op.or]: [{ status: "Đã Thanh Toán" }, { status: "Đã Đặt" }],
-        },
-      });
-      if (exitsOrder) {
-        /*
-         note command
-         Khi tồn tại hóa đơn chưa trả phòng
-         Thực hiện => lấy ngày cuối cùng họ trả phòng để report lại admin
-         Thực hiện bằng cách cú pháp find kết hợp ...
-        */
-        const last_checkout = await OD.findOne({
-          attributes: [
-            "id_order",
-            [
-              sequelize.fn("MAX", sequelize.col("check_out")),
-              "latest_checkout",
-            ],
-          ],
-          where: {
-            "$order.status$": "Đã Thanh Toán",
-            "$order.id_user$": id,
-          },
-          include: [
-            {
-              model: Order,
-              as: "order",
-              attributes: [],
-              where: {
-                status: "Đã Thanh Toán",
-                id_user: id,
-              },
-            },
-          ],
-          group: ["id_order"],
-          order: [[sequelize.fn("MAX", sequelize.col("check_out")), "DESC"]],
-        });
-        const time = new Date(last_checkout.getDataValue("latest_checkout"));
-        var result_last = dayjs(time).format("DD/MM/YYYY h:MM:ss");
-        return res
-          .status(201)
-          .json({
-            message: `Không thể xóa khách hàng - Xóa sau thời gian: ${result_last}`,
-          });
-      } else {
-        
-        const needOrder = await Order.findAll({ where: { id_user: id } });
-        if(needOrder.length > 0)
-        {
-          for(const order of needOrder)
-          {
-            await OD.destroy({where:{id_order:order.id}})
-            order.destroy()
-          }
-        }
-        
-        await Rating.destroy({ where: { id_user: id } });
-        await Mess.destroy({ where: { id_user: id } });
-        await Report.destroy({ where: { id_user: id } });
-        await Favorate.destroy({ where: { id_user: id } });
-        await Noti.destroy({ where: { id_user: id } });
 
-        await User.destroy({ where: { id: id } });
-        return res.status(200).json({ message: "Xóa thành công." });
-      }
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const searchUser = async (req, res) => {
   try {
@@ -269,6 +182,5 @@ module.exports = {
   register,
   updateUser,
   login,
-  deleteUser,
   searchUser,
 };

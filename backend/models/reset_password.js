@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      reset_password.belongsTo(models.user, { foreignKey: 'id_user' });
+
     }
   }
   reset_password.init({

@@ -10,7 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_post: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "posts",
+          key: "id",
+        },
       },
       public_id: {
         type: Sequelize.STRING

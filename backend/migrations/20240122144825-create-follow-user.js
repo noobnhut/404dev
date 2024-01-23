@@ -10,13 +10,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       to_user: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
       },
       from_user: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM('about','link','guild')
       },
       createdAt: {
         allowNull: false,
