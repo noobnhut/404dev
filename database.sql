@@ -1,3 +1,4 @@
+https://dbdiagram.io/d/devto-65ad33c4ac844320ae60ba9b
 Table users {
   id integer [primary key]
   username varchar
@@ -104,9 +105,15 @@ Table noti_system
   content varchar
   created_at date
 }
+
+Table post_tag
+{
+  id integer [primary key]
+  id_post integer
+  id_tag varchar
+}
 Ref: "users"."id" < "posts"."id_user"
 
-Ref: "tags"."id" < "posts"."tag_id"
 
 Ref: "posts"."id" < "like_post"."id_post"
 
@@ -123,3 +130,7 @@ Ref: "users"."id" < "noti_post"."id_user"
 Ref: "posts"."id" < "noti_post"."id_post"
 
 Ref: "users"."id" < "noti_system"."id_user"
+
+Ref: "tags"."id" < "post_tag"."id_tag"
+
+Ref: "posts"."id" < "post_tag"."id_post"
