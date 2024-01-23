@@ -22,6 +22,31 @@ const router = createRouter({
           name: "tag",
           component: () => import("../pages/admin/tag.vue"),
         },
+        {
+          path: "post",
+          name: "post",
+          component: () => import("../pages/admin/post.vue"),
+        },
+        {
+          path: "link",
+          name: "link",
+          component: () => import("../pages/admin/link_about.vue"),
+        },
+        {
+          path: "render",
+          name: "render",
+          component: () => import("../pages/admin/render_ytb.vue"),
+        },
+        {
+          path: "user",
+          name: "user",
+          component: () => import("../pages/admin/user.vue"),
+        },
+        {
+          path: "dashboard",
+          name: "dashboard",
+          component: () => import("../pages/admin/dashboard.vue"),
+        },
       ],
     },
   ],

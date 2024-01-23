@@ -1,10 +1,10 @@
 const db = require("../models");
-
 const Tag = db.tag;
 const Post = db.post;
 const TP = db.post_tag;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
+
 // thêm - xóa - sửa - duyệt tag
 const getTag = async (req, res) => {
   try {
@@ -110,7 +110,8 @@ const deleteTag = async (req, res) => {
       }
       else
       {
-      res.json({ success: true, message: "Có gì đâu xóa má !!!" });
+        await existingTag.destroy()
+        res.json({ success: true, message: "Xóa thành công tag." });
       }
 
     }
