@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      hotel.belongsTo(models.user, { foreignKey: 'id_user' });
+      post.belongsTo(models.user, { foreignKey: 'id_user' });
       post.hasMany(models.like_post, { foreignKey: 'id_post' });
       post.hasMany(models.comment_post, { foreignKey: 'id_post' });
       post.hasMany(models.img_post, { foreignKey: 'id_post' });

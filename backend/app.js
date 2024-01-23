@@ -6,8 +6,9 @@ require('./config/connect');
 const http = require('http');
 const server = http.createServer(app);
 
-const { routerUser } = require ('./routers/userRouter');
-
+//const { routerUser } = require ('./routers/userRouter');
+const {routerAdmin}=require('./routers/adminRouter')
+const {routerTag}=require('./routers/tagRouter')
 // Thiết lập body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -19,7 +20,7 @@ app.use(express.json());
 
 // Định tuyến
 
-app.use(routerUser);
+app.use(routerAdmin,routerTag);
 // Serve các tệp tĩnh trong thư mục "uploads"
 app.use(express.static("uploads"));
 
