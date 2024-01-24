@@ -10,6 +10,8 @@ const server = http.createServer(app);
 const {routerAdmin}=require('./routers/adminRouter')
 const {routerTag}=require('./routers/tagRouter')
 const{routerPost}=require('./routers/postRouter')
+const {routerAboutLink}=require('./routers/aboutLinkRouter')
+const {routerYTB}=require('./routers/YTBRouter')
 // Thiết lập body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,7 +23,7 @@ app.use(express.json());
 
 // Định tuyến
 
-app.use(routerAdmin,routerTag,routerPost);
+app.use(routerAdmin,routerTag,routerPost,routerAboutLink,routerYTB);
 // Serve các tệp tĩnh trong thư mục "uploads"
 app.use(express.static("uploads"));
 

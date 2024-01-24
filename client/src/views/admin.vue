@@ -123,7 +123,7 @@
                       </g>
                     </svg>
                   </div>
-                  <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Quản lý youtube</span>
+                  <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Quản lý đường dẫn</span>
                 </router-link>
               </li>
     
@@ -146,7 +146,7 @@
                       </g>
                     </svg>
                   </div>
-                  <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Quản lý đường dẫn</span>
+                  <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Quản lý youtube</span>
                 </router-link>
               </li>
 
