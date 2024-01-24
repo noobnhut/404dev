@@ -1,17 +1,19 @@
+<template>
+  
 
-<template>1</template>
+ 
+
+</template>
+
 <script>
 export default {
   data() {
     return {
-
+      
     };
   },
-  mounted() {
-
-  },
-  components: {
-
+  methods: {
+    
   },
 };
 </script>

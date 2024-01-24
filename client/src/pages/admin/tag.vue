@@ -67,6 +67,38 @@
     <h2 class="text-xl font-bold text-gray-800">Quản lý nhãn bài đăng</h2>
   </div>
 
+  <!--input check-->
+  <div class="flex items-center px-2 py-2">
+    <div class="flex items-center px-2">
+      <input
+        @click="checkBox()"
+        id="default-checkbox"
+        type="checkbox"
+        v-model="trueCheck"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <label
+        for="default-checkbox"
+        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Đã duyệt</label
+      >
+    </div>
+
+    <div class="flex items-center px-2">
+      <input
+        @click="checkBox()"
+        id="checked-checkbox"
+        type="checkbox"
+        v-model="falseCheck"
+        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+      />
+      <label
+        for="checked-checkbox"
+        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >Chưa duyệt</label
+      >
+    </div>
+  </div>
   <!--render list-->
   <div class="overflow-x-auto bg-white rounded-lg shadow">
     <table
@@ -167,7 +199,10 @@
             v-model="name_tag"
             required
           />
-          <p class="text-red-500 text-sm ml-1" v-if="!name_tag && name_tagFocused">
+          <p
+            class="text-red-500 text-sm ml-1"
+            v-if="!name_tag && name_tagFocused"
+          >
             Không được để trống.
           </p>
         </div>
@@ -222,7 +257,10 @@
             v-model="name_tag"
             required
           />
-          <p class="text-red-500 text-sm ml-1" v-if="!name_tag && name_tagFocused">
+          <p
+            class="text-red-500 text-sm ml-1"
+            v-if="!name_tag && name_tagFocused"
+          >
             Không được để trống.
           </p>
         </div>
@@ -301,22 +339,32 @@ export default {
       isShowAdd: false,
       isShowDelete: false,
       isShowUpdate: false,
+      trueCheck: true,
+      falseCheck: false,
       name_tag: "",
       tags: [],
       tag: "",
-      name_tagFocused:false
+      name_tagFocused: false,
     };
   },
   mounted() {
-    this.getTag();
+    this.getTag(true);
   },
   components: { toast },
   methods: {
-    async getTag() {
+    async getTag(filters) {
       try {
         const result = await this.$axios.get("tag/get");
         if (result.data.success == true) {
-          this.tags = result.data.result;
+          if(filters == true)
+          {
+            this.tags = result.data.result.filter(item=>item.active_status == true);
+          }
+          else
+          {
+          this.tags = result.data.result.filter(item=>item.active_status == false);
+          }
+         
         }
       } catch (error) {
         console.log(error);
@@ -325,75 +373,81 @@ export default {
 
     async addTag() {
       try {
-        this.name_tagFocused = true
-        if(this.name_tag)
-        {
+        this.name_tagFocused = true;
+        if (this.name_tag) {
           const result = await this.$axios.post("tag/add", {
-          name_tag: this.name_tag,
-        });
-        if (result.data.success == true) {
-          this.$refs.toast.showToast(result.data.message);
-          setTimeout(() => {
-            this.getTag();
-            this.name_tag = "";
-            this.name_tagFocused = false
-            this.openShowAdd();
-          }, 1000);
-        } else {
-          this.$refs.toast.showToast(result.data.message);
+            name_tag: this.name_tag,
+          });
+          if (result.data.success == true) {
+            this.$refs.toast.showToast(result.data.message);
+            setTimeout(() => {
+              this.getTag();
+              this.name_tag = "";
+              this.name_tagFocused = false;
+              this.openShowAdd();
+            }, 1000);
+          } else {
+            this.$refs.toast.showToast(result.data.message);
+          }
         }
-        }
-        
       } catch (error) {
         console.log(error);
       }
     },
 
-    async updateTag()
-    {
+    async updateTag() {
       try {
-        this.name_tagFocused = true
-        if(this.name_tag)
-        {
+        this.name_tagFocused = true;
+        if (this.name_tag) {
           const result = await this.$axios.put(`tag/update/${this.tag.id}`, {
-          name_tag: this.name_tag,
-        });
-        if (result.data.success == true) {
-          this.$refs.toast.showToast(result.data.message);
-          setTimeout(() => {
-            this.getTag();
-            this.name_tag = "";
-            this.name_tagFocused = false
-            this.openShowUpdate();
-          }, 1000);
-        } else {
-          this.$refs.toast.showToast(result.data.message);
+            name_tag: this.name_tag,
+          });
+          if (result.data.success == true) {
+            this.$refs.toast.showToast(result.data.message);
+            setTimeout(() => {
+              this.getTag();
+              this.name_tag = "";
+              this.name_tagFocused = false;
+              this.openShowUpdate();
+            }, 1000);
+          } else {
+            this.$refs.toast.showToast(result.data.message);
+          }
         }
-        }
-        
       } catch (error) {
         console.log(error);
       }
     },
 
-    async deleteTag()
-    {
+    async deleteTag() {
       const result = await this.$axios.delete(`tag/delete/${this.tag.id}`);
-        if (result.data.success == true) {
-          this.$refs.toast.showToast(result.data.message);
-          setTimeout(() => {
-            this.getTag();
-            this.openShowDelete();
-          }, 1000);
-        } else {
-          this.$refs.toast.showToast(result.data.message);
-        }
+      if (result.data.success == true) {
+        this.$refs.toast.showToast(result.data.message);
+        setTimeout(() => {
+          this.getTag();
+          this.openShowDelete();
+        }, 1000);
+      } else {
+        this.$refs.toast.showToast(result.data.message);
+      }
     },
+
     select(tag) {
       this.tag = tag;
       this.name_tag = tag.name_tag;
     },
 
+    checkBox() {
+      if (this.trueCheck == true) {
+        this.getTag(false)
+        this.falseCheck = true;
+        this.trueCheck = false;
+      } else {
+        this.getTag(true)
+        this.falseCheck = false;
+        this.trueCheck = true;
+      }
+    },
     openShowAdd() {
       this.isShowAdd = !this.isShowAdd;
     },

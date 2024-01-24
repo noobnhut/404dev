@@ -23,4 +23,6 @@
 # Frontend
 + vuejs 3 + Tailwindcss + Vite
 
+# Tham khảo
+https://codepen.io/frankuxui/details/xxXgBxZ
 # Dự án nhỏ của 404NFP Team
