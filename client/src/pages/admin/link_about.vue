@@ -69,7 +69,7 @@
 
 
   <!--render list-->
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
+  <div class="overflow-x-auto bg-white rounded-lg shadow m-2">
     <table
       class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped"
     >

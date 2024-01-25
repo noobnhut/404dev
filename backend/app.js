@@ -6,8 +6,8 @@ require('./config/connect');
 const http = require('http');
 const server = http.createServer(app);
 
-//const { routerUser } = require ('./routers/userRouter');
 const {routerAdmin}=require('./routers/adminRouter')
+const {routerUser}= require('./routers/userRouter')
 const {routerTag}=require('./routers/tagRouter')
 const{routerPost}=require('./routers/postRouter')
 const {routerAboutLink}=require('./routers/aboutLinkRouter')
@@ -23,7 +23,7 @@ app.use(express.json());
 
 // Định tuyến
 
-app.use(routerAdmin,routerTag,routerPost,routerAboutLink,routerYTB);
+app.use(routerAdmin,routerTag,routerPost,routerAboutLink,routerYTB,routerUser);
 // Serve các tệp tĩnh trong thư mục "uploads"
 app.use(express.static("uploads"));
 

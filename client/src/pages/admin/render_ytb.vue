@@ -69,9 +69,9 @@
 
 
   <!--render list-->
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
+  <div class="overflow-x-auto bg-white rounded-lg shadow px-2 m-2">
     <table
-      class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped"
+      class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped "
     >
       <thead>
         <tr class="text-left">

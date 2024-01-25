@@ -99,8 +99,9 @@
       >
     </div>
   </div>
+  
   <!--render list-->
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
+  <div class="overflow-x-auto bg-white rounded-lg shadow m-2">
     <table
       class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped"
     >
@@ -381,7 +382,7 @@ export default {
           if (result.data.success == true) {
             this.$refs.toast.showToast(result.data.message);
             setTimeout(() => {
-              this.getTag();
+              this.getTag(true);
               this.name_tag = "";
               this.name_tagFocused = false;
               this.openShowAdd();
@@ -405,7 +406,7 @@ export default {
           if (result.data.success == true) {
             this.$refs.toast.showToast(result.data.message);
             setTimeout(() => {
-              this.getTag();
+              this.getTag(true);
               this.name_tag = "";
               this.name_tagFocused = false;
               this.openShowUpdate();
@@ -424,7 +425,7 @@ export default {
       if (result.data.success == true) {
         this.$refs.toast.showToast(result.data.message);
         setTimeout(() => {
-          this.getTag();
+          this.getTag(true);
           this.openShowDelete();
         }, 1000);
       } else {
