@@ -1,10 +1,8 @@
 <template>
-  <navbar/>
-<router-view/>
+1111
 </template>
 
 <script>
-import navbar from '../components/client/navbar.vue'
 export default {
   data() {
     return {
@@ -14,7 +12,7 @@ export default {
   mounted() {
    
   },
-  components: {navbar},
+  components: {},
   methods: {
    
   },
