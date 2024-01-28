@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+   
     {
       path: "/",
       name: "home",
@@ -16,6 +17,31 @@ const router = createRouter({
           path: "information",
           name: "information",
           component: () => import("../pages/client/information.vue"),
+        },
+        {
+          path: "demo",
+          name: "demo",
+          component: () => import("../views/demo.vue"),
+        },
+        {
+          path: "tip",
+          name: "tips",
+          component: () => import("../pages/client/tips.vue"),
+        },
+        {
+          path: "tag",
+          name: "tags",
+          component: () => import("../pages/client/tags.vue"),
+        },
+        {
+          path: "video",
+          name: "videos",
+          component: () => import("../pages/client/videos.vue"),
+        },
+        {
+          path: "link",
+          name: "links",
+          component: () => import("../pages/client/links.vue"),
         },
       ]
     },

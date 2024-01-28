@@ -1,29 +1,20 @@
 <template>
-  <div class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-50" v-show="visible">
-    <div class="rounded-2xl border border-blue-100 bg-white p-4 shadow-lg sm:p-6 lg:p-8" role="alert">
-      <div class="flex items-center gap-4">
-        <span class="shrink-0 rounded-full bg-blue-400 p-2 text-white">
-          <svg class="h-4 w-4" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd"
-              d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z"
-              fill-rule="evenodd" />
-          </svg>
-        </span>
-
-        <p class="font-medium sm:text-lg">Thông báo mới!</p>
-      </div>
-
-      <p class="mt-4 text-gray-500 line-clamp-2 break-words">
-        {{ message }}
-      </p>
-
-      <div class="mt-6 sm:flex sm:gap-4 cursor-pointer " @click="closeToast()">
-        <a class="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-semibold text-white sm:w-auto"
-         >
-          Ok, thấy rồi !!!
+  <div
+    class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-[100]"
+    v-show="visible"
+  >
+    <div
+      class="bg-white/60 backdrop-blur-xl z-20 max-w-md absolute right-5 top-5 rounded-lg p-6 shadow"
+    >
+      <h1 class="text-xl text-slate-700 font-medium">Thông báo 👋</h1>
+      <div class="flex justify-between items-center">
+        <a
+          class="text-slate-500 hover:text-slate-700 text-sm inline-flex space-x-1 items-center break-words"
+        >
+          <span
+            >{{ message }}</span
+          >
         </a>
-
-        
       </div>
     </div>
   </div>
@@ -31,25 +22,24 @@
 <script>
 
 export default {
-
+  emits: ["cancel"],
   data() {
     return {
-      visible: true,
-      message: '',
-    }
+      visible: false,
+      message: "",
+    };
   },
   methods: {
     showToast(message) {
-      this.message = message
-      this.visible = true
+      this.message = message;
+      this.visible = true;
       setTimeout(() => {
-        this.visible = false
-      }, 2000) // thời gian đợi 3 giây trước khi ẩn toast
+        this.visible = false;
+      }, 2000); // thời gian đợi 3 giây trước khi ẩn toast
     },
     closeToast() {
-      this.visible = !this.visible
-    }
+      this.visible = !this.visible;
+    },
   },
-}
-
+};
 </script>
