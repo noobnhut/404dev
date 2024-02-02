@@ -1,5 +1,6 @@
 const db = require("../models");
 const Tag = db.tag;
+const User = db.user;
 const Post = db.post;
 const TP = db.post_tag;
 const sequelize = require("sequelize");
@@ -36,6 +37,7 @@ const runMiddleware = (req, res, fn) => {
     });
   });
 }
+
 const getPost = async (req, res) => {
   try {
     const result = await Post.findAll({
@@ -66,7 +68,18 @@ const getPost = async (req, res) => {
 const addPost = async(req,res)=>
 {
     try {
-        
+        const {title,content,id_user}=req.body
+        // exist user
+        const exist_user = await User.findByPk(id_user)
+        if(exist_user)
+        {
+          const result = await Post.create({title,content,id_user})
+          res.json({ success: true, message:"Thêm thành công" });
+        }
+        else
+        {
+          res.json({ success: false, message:"Không tồn tại user này" });
+        }
     } catch (error) {
         console.log(error)
     }
@@ -74,11 +87,9 @@ const addPost = async(req,res)=>
 
 const updateImg = async (req, res) => {
   try {
-    const id = req.params.id
-    const exist = await Img.findByPk(id)
-    if (exist) {
+  
       // cập nhập bằng cách xóa cái cũ đi trên cloud
-      await cloudinary.uploader.destroy(`${exist.public_id}`)
+      // await cloudinary.uploader.destroy(`${exist.public_id}`)
       // cho ghi đè lại cái mới được thêm vào lên bảng
       // gọi lại hàm runmiddleware 
       await runMiddleware(req, res, upload.single("file"));
@@ -88,15 +99,11 @@ const updateImg = async (req, res) => {
       let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
       const cldRes = await handleUpload(dataURI);
       if (cldRes) {
-        exist.public_id = cldRes.public_id
-        exist.url_img = cldRes.url
-        exist.save()
+        // exist.public_id = cldRes.public_id
+        // exist.url_img = cldRes.url
+        // exist.save()
         res.json('Xong')
       }
-    }
-    else {
-      res.json('Thất bại')
-    }
   } catch (error) {
     console.log(error)
   }
@@ -118,5 +125,7 @@ const handler = async (req, res) => {
 };
 
 module.exports = { 
-    getPost
+    getPost,
+    updateImg,
+    addPost
 };

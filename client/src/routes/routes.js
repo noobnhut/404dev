@@ -43,6 +43,11 @@ const router = createRouter({
           name: "links",
           component: () => import("../pages/client/links.vue"),
         },
+        {
+          path: "new",
+          name: "news",
+          component: () => import("../pages/client/newpost.vue"),
+        },
       ]
     },
     {
